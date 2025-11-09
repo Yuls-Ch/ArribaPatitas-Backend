@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Arriba Patitas 🐾 - Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-light-start: #FF9800;
+            --accent: #FF5722;
+            --text-dark: #333333;
+            --form-bg: rgba(255, 152, 0, 0.9);
+            --white: #ffffff; 
+            --dark-button: #444444; 
+            --text-light: var(--white); 
+            --bg-yellow-corner: #FFC107; 
+            --fallback-grey: #f0f0f0; 
+            --main-title-dark: #3a3a3a;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex; 
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            font-family: "Poppins", sans-serif; 
+            overflow: hidden;
+            position: relative;
+            
+            padding-top: 15vh;
+            
+            background-color: var(--fallback-grey); 
+            
+            background: url("https://i.pinimg.com/736x/6e/78/af/6e78af0c0d8cda9d90b5b6e99a7cff5b.jpg") no-repeat center center fixed; 
+            background-size: cover;
+            filter: brightness(0.95);
+        }
+        
+        .main-logo-title {
+            position: relative;
+            z-index: 10;
+            margin-bottom: 45px; 
+            color: var(--main-title-dark);
+            font-size: 50px; 
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); 
+            line-height: 1;
+            text-align: center;
+        }
+
+        .main-logo-title .accent-text {
+            color: var(--bg-light-start);
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 600px) {
+            .main-logo-title {
+                font-size: 40px;
+                margin-bottom: 25px;
+            }
+            body {
+                padding-top: 15vh;
+            }
+        }
+
+        .brand-fixed {
+            display: none;
+        }
+        .brand-fixed .logo-icon, .brand-fixed span {
+             text-shadow: none;
+        }
+
+        .login-container {
+            max-width: 350px; 
+            width: 90%; 
+            padding: 40px 30px 30px; 
+            background-color: var(--form-bg); 
+            backdrop-filter: blur(5px); 
+            border-radius: 15px; 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); 
+            text-align: center;
+            position: relative; 
+            z-index: 10; 
+            animation: slideIn 0.6s ease-out; 
+            border: none;
+        }
+
+        .paw-icon-top {
+            display: flex; 
+            position: absolute;
+            top: -15px; 
+            right: -15px; 
+            width: 50px; 
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: var(--bg-light-start); 
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            transform: rotate(10deg); 
+            z-index: 12;
+        }
+        .paw-icon-top i {
+            color: var(--text-dark); 
+            font-size: 22px;
+        }
+
+
+        .login-container h2 {
+            margin-top: 5px; 
+            margin-bottom: 25px; 
+            color: var(--text-light); 
+            font-size: 20px; 
+            font-weight: 700; 
+            letter-spacing: 0.5px;
+            text-transform: uppercase; 
+        }
+
+        .form-field-label {
+            display: block;
+            text-align: left;
+            font-size: 13px; 
+            font-weight: 600; 
+            color: var(--text-light); 
+            margin-bottom: 5px;
+            margin-top: 15px; 
+            text-transform: uppercase;
+        }
+
+        .login-container form :first-child .form-field-label {
+             margin-top: 0;
+        }
+        
+        .login-container input {
+            width: 90%;
+            padding: 12px 15px; 
+            margin-bottom: 0; 
+            border: none; 
+            background: var(--white); 
+            border-radius: 8px; 
+            font-size: 15px; 
+            font-weight: 500;
+            color: var(--text-dark); 
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset; 
+        }
+
+        .login-container input:focus {
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 0 0 2px var(--accent); 
+            outline: none;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px; 
+            background-color: var(--dark-button); 
+            color: var(--white); 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px;
+            font-weight: 700; 
+            cursor: pointer;
+            margin-top: 30px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #333333; 
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+        
+        .login-message {
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-light); 
+        }
+        
+        .register-link {
+            display: inline-block;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--bg-yellow-corner); 
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .register-link:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .paw-container { 
+            display: none; 
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="paw-container" style="display:none;">
+    </div>
+
+    <div class="main-logo-title">
+        <span>ARRIBA</span>
+        <span class="accent-text">PATITAS</span>
+    </div>
+
+    <div class="login-container">
+        <div class="paw-icon-top">
+            <i class="fas fa-paw"></i>
+        </div>
+        
+        <h2>INICIAR SESIÓN</h2>
+
+        <form th:action="@{/login}" method="post">
+            <div>
+                <label class="form-field-label">Usuario:</label>
+                <input type="text" name="username" required />
+            </div>
+            <div>
+                <label class="form-field-label">Contraseña:</label>
+                <input type="password" name="password" required />
+            </div>
+            <div class="btn">
+                <button type="submit">INGRESAR</button>
+            </div>
+        </form>
+
+        <p th:if="${param.error}" class="login-message">
+            ⚠️ Usuario o contraseña incorrectos
+        </p>
+        <p th:if="${param.logout}" class="login-message">
+            👋 Sesión cerrada con éxito
+        </p>
+
+        <a th:href="@{/registro}" class="register-link">¿No tienes cuenta? Regístrate aquí</a>
+    </div>
+  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script th:if="${registroExitoso}">
+        Swal.fire({
+            icon: 'success',
+            title: '¡Registro exitoso!',
+            text: 'Inicia sesión usando tus credenciales.',
+            timer: 3000,
+            showConfirmButton: false
+        });
+    </script>
+</body>
+</html>
